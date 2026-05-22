@@ -1,3 +1,126 @@
-# https://www.robotstxt.org/robotstxt.html
+# VIO LOCAL — robots.txt
+# Hyperlocal commerce discovery platform · Vietnam
+# https://violocal.vn
+#
+# Rule review: update whenever route structure changes.
+# Last reviewed: 2026-05-22
+# =============================================================================
+
+
+# =============================================================================
+# DEFAULT: all well-behaved crawlers
+# =============================================================================
+
 User-agent: *
-Disallow:
+
+# ── PRIVATE / AUTHENTICATED ROUTES ───────────────────────────────────────────
+
+# Account management dashboard
+Disallow: /dashboard/
+Disallow: /quan-ly/
+Disallow: /tai-khoan/
+Disallow: /cai-dat/
+
+# Authentication flows — no SEO value, no public content
+Disallow: /dang-nhap
+Disallow: /dang-ky
+Disallow: /quen-mat-khau
+Disallow: /doi-mat-khau/
+Disallow: /xac-nhan/
+
+# Admin panel
+Disallow: /admin/
+
+# Storefront owner management routes
+# (canonical storefront pages at /ho-kinh-doanh/:slug are allowed below)
+Disallow: /ho-kinh-doanh/tao-moi
+Disallow: /ho-kinh-doanh/*/chinh-sua
+Disallow: /ho-kinh-doanh/*/san-pham/tao-moi
+Disallow: /ho-kinh-doanh/*/dich-vu/tao-moi
+
+# ── API AND FRAMEWORK INTERNALS ───────────────────────────────────────────────
+
+Disallow: /api/
+Disallow: /_server/
+Disallow: /__vinxi/
+Disallow: /_build/
+Disallow: /_stream/
+
+# ── PARAMETERIZED DUPLICATE CONTENT ──────────────────────────────────────────
+#
+# Tracking parameters: fbclid, gclid, utm_* create thousands of duplicate URLs
+# with zero indexable difference. Block them to protect crawl budget.
+#
+# Sort/filter parameters: reorder or refilter the same content — duplicates.
+#
+# Pagination (?page=): NOT blocked here. Page 2+ already carries
+# <meta name="robots" content="noindex, follow"> and canonical → page 1
+# via the thin-page engine. Crawling pagination lets Google discover
+# deeper listing content through links.
+
+Disallow: /*?utm_source=
+Disallow: /*?utm_medium=
+Disallow: /*?utm_campaign=
+Disallow: /*?utm_content=
+Disallow: /*?utm_term=
+Disallow: /*?fbclid=
+Disallow: /*?gclid=
+Disallow: /*?msclkid=
+Disallow: /*?ref=
+Disallow: /*?sort=
+Disallow: /*?filter=
+Disallow: /*?tab=
+
+# ── ALLOW EVERYTHING ELSE ─────────────────────────────────────────────────────
+# Explicit allow covers:
+#   /                            homepage
+#   /ho-kinh-doanh/:slug         storefront canonical pages
+#   /san-pham/:slug              product pages
+#   /dich-vu/:slug               service pages
+#   /:province                   province discovery pages
+#   /:province/:district         district discovery pages
+#   /:province/:category         category+province pages
+#   /:province/:district/:cat    category+district pages
+#   /sitemap*.xml                sitemap files
+#   /ve-chung-toi                about page
+
+Allow: /
+
+# ── SITEMAPS ──────────────────────────────────────────────────────────────────
+
+Sitemap: https://violocal.vn/sitemap.xml
+
+
+# =============================================================================
+# SEO TOOL CRAWLERS: reduced crawl-delay to limit infrastructure impact
+# =============================================================================
+
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MajesticSEO
+Crawl-delay: 10
+
+
+# =============================================================================
+# AGGRESSIVE / LOW-VALUE BOTS: fully blocked
+# These bots ignore noindex, scrape without attribution, or hammer servers.
+# =============================================================================
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: SeznamBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
