@@ -1,0 +1,1 @@
+-- intentionally empty — superseded by 20260521144613_init_categories.sql
