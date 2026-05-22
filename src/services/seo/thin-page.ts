@@ -23,6 +23,15 @@ export const THRESHOLDS = {
   // Province nav: minimum storefronts for a district to appear in province nav.
   // Must equal or exceed `district` threshold — never link to noindex pages.
   provinceNavDistrict:    3,
+
+  // Land listing discovery pages (/dat-nong-nghiep/:province, /:province/:district)
+  // Lower than storefront thresholds — land listings are rarer than storefronts.
+  landProvince:           5,
+  landDistrict:           2,
+
+  // Province land nav: minimum land listings for a district link to appear.
+  // Must equal landDistrict — never link from indexed to noindex pages.
+  landProvinceNavDistrict: 2,
 } as const
 
 export type PageType = keyof typeof THRESHOLDS
