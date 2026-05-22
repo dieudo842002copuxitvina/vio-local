@@ -32,6 +32,22 @@ export const THRESHOLDS = {
   // Province land nav: minimum land listings for a district link to appear.
   // Must equal landDistrict — never link from indexed to noindex pages.
   landProvinceNavDistrict: 2,
+
+  // Content pages — crop × province (/nong-san/:crop/:province)
+  // Minimum storefronts selling this crop in this province for the page to index.
+  // Higher than categoryProvince (3) — content pages claim editorial authority.
+  cropProvince:   5,
+
+  // Minimum provinces meeting cropProvince for the national crop page (/nong-san/:crop).
+  cropNational:   2,
+
+  // Minimum storefronts active during a harvest season for /mua-vu/:season pages.
+  // Lower than cropProvince — seasonal pages are time-bounded, lower density is acceptable.
+  seasonProvince: 3,
+
+  // Province page crop nav: minimum storefronts for a crop link to appear in province nav.
+  // Must equal cropProvince — never link indexed province page to noindex content page.
+  provinceCropNav: 5,
 } as const
 
 export type PageType = keyof typeof THRESHOLDS
